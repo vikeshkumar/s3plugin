@@ -117,7 +117,7 @@ public class S3Helper {
 			// TODO: Change from CannedAccessControlList.PublicRead to cacl, to
 			// respect the permisssion level.
 			PutObjectRequest putRequest = new PutObjectRequest(bucketName, key,
-					file).withCannedAcl(CannedAccessControlList.PublicRead);
+					file).withCannedAcl(cacl);
 			System.out.println("Uploading file " + file.getAbsolutePath()
 					+ " to " + bucketName + " :: key is :: " + key);
 			PutObjectResult result = s3.putObject(putRequest);
