@@ -10,10 +10,8 @@ import java.util.logging.Logger;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.AccessControlList;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.Owner;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.Region;
@@ -116,6 +114,8 @@ public class S3Helper {
 			} else {
 				key = file.getName();
 			}
+			// TODO: Change from CannedAccessControlList.PublicRead to cacl, to
+			// respect the permisssion level.
 			PutObjectRequest putRequest = new PutObjectRequest(bucketName, key,
 					file).withCannedAcl(CannedAccessControlList.PublicRead);
 			System.out.println("Uploading file " + file.getAbsolutePath()
@@ -137,6 +137,7 @@ public class S3Helper {
 		List<PutObjectResult> por = new ArrayList<PutObjectResult>();
 		if (files != null) {
 			for (File f : files) {
+				System.out.println("CACL while uploading :" + cacl.toString());
 				por.add(uploadFile(f, path, s3, cacl));
 			}
 		} else {

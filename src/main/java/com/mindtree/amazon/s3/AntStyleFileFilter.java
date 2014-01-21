@@ -2,7 +2,6 @@ package com.mindtree.amazon.s3;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.shiro.util.AntPathMatcher;

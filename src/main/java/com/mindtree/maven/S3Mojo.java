@@ -18,9 +18,6 @@ package com.mindtree.maven;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,9 +38,9 @@ import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.Region;
-import com.mindtree.amazon.s3.S3ClientBuilder;
-import com.mindtree.amazon.s3.AntStyleFileFilter;
 import com.mindtree.amazon.LocalProxy;
+import com.mindtree.amazon.s3.AntStyleFileFilter;
+import com.mindtree.amazon.s3.S3ClientBuilder;
 import com.mindtree.amazon.s3.S3Helper;
 
 /**
@@ -146,6 +143,7 @@ public class S3Mojo extends AbstractMojo {
 				pathStyles[i] = values[0];
 				accessControls[i] = values[1];
 			} else if (pathStyle.endsWith(";")) {
+				logger.info("Replacing ; with nothing");
 				pathStyles[i] = pathStyle.replaceAll(";", "");
 			}
 			bucketNames[i] = key;
@@ -191,7 +189,6 @@ public class S3Mojo extends AbstractMojo {
 		if (localProxy != null) {
 			project.getProperties().put(LocalProxy.LOCAL_PROXY, localProxy);
 		}
-		project.getProperties().put(CloudFrontMojo.S3_ENDPOINTS, bucketSet);
 	}
 
 	/**
@@ -297,6 +294,7 @@ public class S3Mojo extends AbstractMojo {
 				if (fileList != null && fileList.size() > 0) {
 					if (!retainFolderStructure) {
 						logger.debug("Not retaining folder structure and uploadinf files");
+						System.out.println(cacl.toString());
 						List<PutObjectResult> fileUploadResults = S3Helper
 								.uploadFiles(fileList, bucketName, s3, cacl);
 					} else {
