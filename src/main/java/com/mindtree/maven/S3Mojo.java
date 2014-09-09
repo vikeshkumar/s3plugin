@@ -15,7 +15,6 @@ package com.mindtree.maven;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-failer
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
